@@ -20,7 +20,130 @@ bool CreateAccount(long long int InitAccNum, long long int AccountNumber[], int 
     cout << "-------------------------------------------------------------------------------"<< endl;
     cout << endl;
     
-    
+    while(IsRunning == true && Run == true){
+        int AgeNdDepoVar = 0;
+        bool Duplicate = false, IsValidAge = false, IsValidDeposit = false;
+        cout << endl;
+        cout << "------Enter your legal name------ "<<endl;
+        cout << endl;
+        cout<< "First name: ";
+        cin >> TempFirstName;
+        cout<< "Middle name: ";
+        cin >> TempMiddleName;
+        cout<< "Last name: ";
+        
+        getline(cin, TempLastName);
+        cin.ignore();
+        // This part of the code checks if an account is already registered under the same name 
+        for(int i = 0; i < count; i++ ){
+            
+// Conditional check
+            if (FirstName[i] == TempFirstName && MiddleName[i] == TempMiddleName && LastName[i] == TempLastName){
+                cout << "There exists an account under this name " << endl;
+                Duplicate = true;
+            }
+            
+        }
+
+        
+        // This part of the program checks if a correct customer age is provided 
+        // and if the minimum amount of money is deposited 
+        while (Duplicate == false && AgeNdDepoVar == 0){
+
+            // This part of the program checks if a correct customer age is provided 
+            while (IsValidAge == false){
+                cout << "Enter legal Age: ";
+                cin >> TempAge;
+                if(TempAge >= 18 && TempAge <= 120){
+                    AgeNdDepoVar++;
+                    IsValidAge = true;
+                }
+                
+                else {
+                    cout << "Enter a valid input." << endl;
+                    
+                }
+            }
+
+            // Checks if the minimum amount of money is deposited 
+            
+
+            while(IsValidDeposit == false){
+                cout << "Enter legal Initial Deposit: ";
+                cin >> TempInitialDeposit;
+                if (TempInitialDeposit < 50){
+                    cout << TempInitialDeposit << " is below the required minimum.\nThe minimum amount needed to create a new account is 50 Birr.\nPlease enter again.\n";
+                }
+                else if(TempInitialDeposit >= 50){
+                    AgeNdDepoVar++;
+                    IsValidDeposit = true;
+                }
+                else {
+                    cout << "Enter a valid input." << endl;
+                }
+            }
+            
+        }
+
+        
+        // This part of the program saves the entered info to the arrays
+        if (Duplicate == false && IsValidAge == true && IsValidDeposit == true){
+            FirstName[count] = TempFirstName;
+            MiddleName[count] = TempMiddleName;
+            LastName[count] = TempLastName;
+            Age[count] = TempAge;
+            AccountNumber[count] = InitAccNum + count;
+            AccDeposit[count] = TempInitialDeposit;
+            cout << "The Account Has Been Successfully Created." << endl;
+            
+        }
+
+        //This part of the program displays the newly created account info.
+        if ( Duplicate == false ){
+            cout << "-------------------------------------------------------------------------------"<< endl;
+            cout << "Account Number | " << AccountNumber[count] << endl;
+            cout << "-------------------------------------------------------------------------------"<< endl;
+            cout << "Full Name | " << FirstName[count] << " " << MiddleName[count] << " " << LastName[count] << endl;
+            cout << "-------------------------------------------------------------------------------"<< endl;
+            cout << "Age | " << Age[count] << endl;
+            cout << "-------------------------------------------------------------------------------"<< endl;
+            cout << "Deposit | " << AccDeposit[count] << endl;
+            cout << "-------------------------------------------------------------------------------"<< endl;
+            cout << endl;
+            count++;
+        }
+        
+
+        
+
+        // This part of the program handles exiting, going back to the main menu, or creating another account
+        cout << "Enter 1 to quit the program." << endl;
+        cout << "Enter 2 to go back to the main menu" << endl;
+        cout << "Enter 3 to go back again and create another account." << endl;
+        cin >> choice;
+
+        switch (choice){
+            case 1: {
+                cout << "Quitting" << endl;
+                Run = false;
+                IsRunning = false; 
+                break;
+            }
+            case 2: {
+                cout << "Going back to main menu" << endl;
+                Run = false;
+                break;
+            }
+            case 3: {
+                cout << endl;
+                break;
+            }
+            default:{
+                cout << "Enter a valid input." << endl;
+            }
+        }
+        
+    }
     
     return IsRunning;
      
