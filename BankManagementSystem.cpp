@@ -249,7 +249,106 @@ bool Transfer(long long int AccountNumber[1000],int count,
     long long int InputAccount, InputResAccount, TransferAmount;
     bool Run = true, IsRunning = true;
     
+    while (IsRunning == true && Run == true ){
+        bool ValidRecipant = false, ValidTransfer = false, IsValid = false;
+        arrnum = 0;
+        ArrRecNum = 0;
+// Display information or prompt to user
+        cout << "Enter Account Number: ";
+// Take user input
+        cin >> InputAccount;
+        for (int i = 0; i < count; i++){
+            
+// Conditional check
+            if (AccountNumber[i] == InputAccount){
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                cout << "Account Number | " << AccountNumber[i] << endl;
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                cout << "Full Name | " << FirstName[i] << " " << MiddleName[i] << " " << LastName[i] << endl;
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                cout << "Deposit | " << AccDeposit[i] << endl;
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                arrnum = i;
+                IsValid = true;
+                break;
+            }
+            cout << endl;
+        }
+        if (IsValid == false ){
+            cout << "There Is No Account Under That Account Number."<< endl;
+            continue;
+        }
+        cout << "Enter Recipant Account Number: ";
+        cin >> InputResAccount;
+        for (int i = 0; i < count; i++){
+            
+// Conditional check
+            if (AccountNumber[i] == InputResAccount && AccountNumber[i] != InputAccount){
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                cout << "Account Number | " << AccountNumber[i] << endl;
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                cout << "Full Name | " << FirstName[i] << " " << MiddleName[i] << " " << LastName[i] << endl;
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                ArrRecNum = i;
+                ValidRecipant = true;
+                break;
+            }
+            
+// Conditional check
+            else if (AccountNumber[i] == InputAccount){
+                cout << "you cant transfer to same account." << endl;
+            }
+            cout << endl;
+        }
+        if (ValidRecipant == false ){
+            cout << "There Is No Account Under That Account Number."<< endl;
+            continue;
+        }
+        while ( ValidTransfer == false && IsValid == true && ValidRecipant == true){
+            cout << "Enter Enter transfer amount: ";
+            cin >> TransferAmount;
+            if (AccDeposit[arrnum]-TransferAmount < 50){
+                cout << "Transfer faild, You have insufficient balance.\ncurrently you can only transfer " << AccDeposit[arrnum] - 50 << endl;
+            }
+            else if (AccDeposit[arrnum]-TransferAmount >= 50){
+                cout << "The Transfer Was Successfull."<<endl;
+                cout << "You Have Transfered " << TransferAmount << " Birr." << endl;
+                AccDeposit[arrnum] = AccDeposit[arrnum] - TransferAmount;
+                AccDeposit[ArrRecNum] = AccDeposit[ArrRecNum] + TransferAmount;
+                cout << "Your Updated Balance Is " << AccDeposit[arrnum] << " Birr." << endl;
+                ValidTransfer = true;
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                cout << endl;
+            }
+        }
+    // This part of the program handles exiting, going back to the main menu, or creating another account
+        cout << "Enter 1 to quit the program." << endl;
+        cout << "Enter 2 to go back to the main menu" << endl;
+        cout << "Enter 3 to go back again and create another account." << endl;
+        cin >> choice;
 
+        switch (choice){
+            case 1: {
+                cout << "Quitting" << endl;
+                Run = false;
+                IsRunning = false; 
+                break;
+            }
+            case 2: {
+                cout << "Going back to main menu" << endl;
+                Run = false;
+                break;
+            }
+            case 3: {
+                cout << endl;
+                break;
+            }
+            default:{
+                cout << "Enter a valid input." << endl;
+            }
+        }
+        cout << endl;
+    }
 
     return IsRunning;
 }
