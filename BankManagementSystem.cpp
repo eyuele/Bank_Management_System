@@ -456,7 +456,64 @@ bool BalanceInquiry(long long int AccountNumber[],int count,
     long long int InputAccount;
     bool Run = true, IsRunning = true;
     string InputName;
+    while (Run == true && IsRunning == true){
+        bool IsValid = false;
+        cout << "Enter Account Number: ";
+        cin >> InputAccount;
+        cout << "Enter Account Name: ";
+        cin >> InputName;
+        for (int i = 0; i < count; i++){
+            
+// Conditional check
+            if (AccountNumber[i] == InputAccount && FirstName[i] == InputName){
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                cout << "Account Number | " << AccountNumber[i] << endl;
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                cout << "Full Name | " << FirstName[i] << " " << MiddleName[i] << " " << LastName[i] << endl;
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                cout << "Deposit | " << AccDeposit[i] << endl;
+                cout << "-------------------------------------------------------------------------------"<< endl;
+                IsValid = true;
+                break;
+            }
+            cout << endl;
+        }
+// Conditional check
+        if (IsValid == false ){
+            cout << "There Is No Account Under That Account Number."<< endl;
+            continue;
+        }
+
     
+
+    // This part of the program handles exiting, going back to the main menu, or creating another account
+        cout << "Enter 1 to quit the program." << endl;
+        cout << "Enter 2 to go back to the main menu" << endl;
+        cout << "Enter 3 to go back again and create another account." << endl;
+        cin >> choice;
+
+        switch (choice){
+            case 1: {
+                cout << "Quitting" << endl;
+                Run = false;
+                IsRunning = false; 
+                break;
+            }
+            case 2: {
+                cout << "Going back to main menu" << endl;
+                Run = false;
+                break;
+            }
+            case 3: {
+                cout << endl;
+                break;
+            }
+            default:{
+                cout << "Enter a valid input." << endl;
+            }
+        }
+        cout << endl;
+    }
 
 
     return IsRunning;
