@@ -5,132 +5,110 @@ using namespace std;
 
 // Function: CreateAccount
 
+#include <iostream>
+using namespace std;
+
+// Function: CreateAccount
 bool CreateAccount(long long int InitAccNum, long long int AccountNumber[], int &count, int  Age[],
-    long long int AccDeposit[], string FirstName[], string MiddleName[], 
-    string LastName[])
+    long long int AccDeposit[], string AccountName[][3])
 {
     bool IsRunning, Run;
     IsRunning = true;
     Run = true;
     int choice;
-
     int TempAge;
     int TempInitialDeposit;
     string TempFirstName, TempMiddleName, TempLastName;
-    cout << "-------------------------------------------------------------------------------"<< endl;
+    cout << "-------------------------------------------------------------------------------" << endl;
     cout << endl;
-    
+
     while(IsRunning == true && Run == true){
         int AgeNdDepoVar = 0;
         bool Duplicate = false, IsValidAge = false, IsValidDeposit = false;
         cout << endl;
-        cout << "------Enter your legal name------ "<<endl;
+        cout << "------ Enter your legal name ------" << endl;
         cout << endl;
-        cout<< "First name: ";
+        cout << "First name: ";
         cin >> TempFirstName;
-        cout<< "Middle name: ";
+        cout << "Middle name: ";
         cin >> TempMiddleName;
-        cout<< "Last name: ";
-        
-        getline(cin, TempLastName);
-        cin.ignore();
-        // This part of the code checks if an account is already registered under the same name 
-        for(int i = 0; i < count; i++ ){
-            
-// Conditional check
-            if (FirstName[i] == TempFirstName && MiddleName[i] == TempMiddleName && LastName[i] == TempLastName){
-                cout << "There exists an account under this name " << endl;
+        cout << "Last name: ";
+        cin >> TempLastName;
+
+        for(int i = 0; i < count; i++){
+            if (AccountName[i][0] == TempFirstName && AccountName[i][1] == TempMiddleName && AccountName[i][2] == TempLastName){
+                cout << "An account already exists under this name." << endl;
                 Duplicate = true;
             }
-            
         }
 
-        
-        // This part of the program checks if a correct customer age is provided 
-        // and if the minimum amount of money is deposited 
         while (Duplicate == false && AgeNdDepoVar == 0){
-
-            // This part of the program checks if a correct customer age is provided 
             while (IsValidAge == false){
-                cout << "Enter legal Age: ";
+                cout << "Enter your legal age: ";
                 cin >> TempAge;
                 if(TempAge >= 18 && TempAge <= 120){
                     AgeNdDepoVar++;
                     IsValidAge = true;
-                }
-                
-                else {
-                    cout << "Enter a valid input." << endl;
-                    
+                } else {
+                    cout << "Please enter a valid age between 18 and 120." << endl;
                 }
             }
 
-            // Checks if the minimum amount of money is deposited 
-            
-
             while(IsValidDeposit == false){
-                cout << "Enter legal Initial Deposit: ";
+                cout << "Enter your initial deposit, use only(0-9): ";
                 cin >> TempInitialDeposit;
                 if (TempInitialDeposit < 50){
-                    cout << TempInitialDeposit << " is below the required minimum.\nThe minimum amount needed to create a new account is 50 Birr.\nPlease enter again.\n";
+                    cout << TempInitialDeposit << " is below the required minimum.\n";
+                    cout << "Minimum amount required to open an account is 50 Birr.\n";
+                    cout << "Please try again.\n";
+
                 }
                 else if(TempInitialDeposit >= 50){
                     AgeNdDepoVar++;
                     IsValidDeposit = true;
                 }
-                else {
-                    cout << "Enter a valid input." << endl;
-                }
+                
             }
-            
         }
 
-        
-        // This part of the program saves the entered info to the arrays
         if (Duplicate == false && IsValidAge == true && IsValidDeposit == true){
-            FirstName[count] = TempFirstName;
-            MiddleName[count] = TempMiddleName;
-            LastName[count] = TempLastName;
+            AccountName[count][0] = TempFirstName;
+            AccountName[count][1] = TempMiddleName;
+            AccountName[count][2] = TempLastName;
             Age[count] = TempAge;
             AccountNumber[count] = InitAccNum + count;
             AccDeposit[count] = TempInitialDeposit;
-            cout << "The Account Has Been Successfully Created." << endl;
-            
+            cout << "The account has been successfully created." << endl;
         }
 
-        //This part of the program displays the newly created account info.
-        if ( Duplicate == false ){
-            cout << "-------------------------------------------------------------------------------"<< endl;
+        if (Duplicate == false){
+            cout << "-------------------------------------------------------------------------------" << endl;
             cout << "Account Number | " << AccountNumber[count] << endl;
-            cout << "-------------------------------------------------------------------------------"<< endl;
-            cout << "Full Name | " << FirstName[count] << " " << MiddleName[count] << " " << LastName[count] << endl;
-            cout << "-------------------------------------------------------------------------------"<< endl;
+            cout << "-------------------------------------------------------------------------------" << endl;
+            cout << "Full Name | " << AccountName[count][0] << " " << AccountName[count][1] << " " << AccountName[count][2] << endl;
+            cout << "-------------------------------------------------------------------------------" << endl;
             cout << "Age | " << Age[count] << endl;
-            cout << "-------------------------------------------------------------------------------"<< endl;
+            cout << "-------------------------------------------------------------------------------" << endl;
             cout << "Deposit | " << AccDeposit[count] << endl;
-            cout << "-------------------------------------------------------------------------------"<< endl;
+            cout << "-------------------------------------------------------------------------------" << endl;
             cout << endl;
             count++;
         }
-        
 
-        
-
-        // This part of the program handles exiting, going back to the main menu, or creating another account
         cout << "Enter 1 to quit the program." << endl;
-        cout << "Enter 2 to go back to the main menu" << endl;
-        cout << "Enter 3 to go back again and create another account." << endl;
+        cout << "Enter 2 to return to the main menu." << endl;
+        cout << "Enter 3 to create another account." << endl;
         cin >> choice;
 
         switch (choice){
             case 1: {
-                cout << "Quitting" << endl;
+                cout << "Exiting..." << endl;
                 Run = false;
                 IsRunning = false; 
                 break;
             }
             case 2: {
-                cout << "Going back to main menu" << endl;
+                cout << "Returning to main menu..." << endl;
                 Run = false;
                 break;
             }
@@ -139,23 +117,19 @@ bool CreateAccount(long long int InitAccNum, long long int AccountNumber[], int 
                 break;
             }
             default:{
-                cout << "Enter a valid input." << endl;
+                cout << "Invalid input. Please try again." << endl;
             }
         }
-        
     }
-    
+
     return IsRunning;
-     
-    
 }
-//
+
+
 
 // Function: Deposit
-// -----------------------------
 bool Deposit(long long int AccountNumber[],int count, int  Age[],
-    long long int AccDeposit[], string FirstName[], string MiddleName[], 
-    string LastName[])
+    long long int AccDeposit[], string AccountName[][3], string TransactionHistory[][100], int Log[])
 {
     int arrnum, choice;
     long long int InputAccount, DepositAmount;
@@ -166,13 +140,15 @@ bool Deposit(long long int AccountNumber[],int count, int  Age[],
         arrnum = 0;
         cout << "Enter Account Number: ";
         cin >> InputAccount;
+
         for (int i = 0; i < count; i++){
-// Conditional check
+            // Conditional check
             if (AccountNumber[i] == InputAccount){
+                cout << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << "Account Number | " << AccountNumber[i] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
-                cout << "Full Name | " << FirstName[i] << " " << MiddleName[i] << " " << LastName[i] << endl;
+                cout << "Full Name | " << AccountName[i][0] << " " << AccountName[i][1] << " " << AccountName[i][2] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << "Age | " << Age[i] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
@@ -183,22 +159,26 @@ bool Deposit(long long int AccountNumber[],int count, int  Age[],
                 break;
             }
         }
-// Conditional check
+        cout << endl;
+
+        // Conditional check
         if (IsValid == false){
             cout << "There Is No Account Under That Account Number."<< endl;
         }
         while ( ValidDepo == false && IsValid == true){
-            cout << "Enter Enter deposit amount: ";
+            cout << "Please Enter deposit amount: ";
             cin >> DepositAmount;
             if (DepositAmount < 50){
                 cout << "The Minimum Amount You Can Deposit Is 50 Birr, Please Deposit A Larger Amount" << endl;
             }
             else if (DepositAmount >= 50){
                 cout << "The Deposit Was Successfull."<<endl;
+                TransactionHistory[arrnum][Log[arrnum]] = "You Have Deposited Money in to your account.";
                 cout << "You Have Deposited " << DepositAmount << " Birr." << endl;
                 AccDeposit[arrnum] = AccDeposit[arrnum] + DepositAmount;
                 cout << "Your Updated Balance Is " << AccDeposit[arrnum] << " Birr." << endl;
                 ValidDepo = true;
+                Log[arrnum] += 1;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << endl;
             }
@@ -240,10 +220,9 @@ bool Deposit(long long int AccountNumber[],int count, int  Age[],
 
 
 // Function: Transfer
-// -----------------------------
-bool Transfer(long long int AccountNumber[1000],int count,
-    long long int AccDeposit[1000], string FirstName[1000], string MiddleName[1000], 
-    string LastName[1000])
+
+bool Transfer(long long int AccountNumber[],int count,
+    long long int AccDeposit[], string AccountName[][3], string TransactionHistory[][100], int Log[])
 {
     int ArrRecNum, arrnum, choice;
     long long int InputAccount, InputResAccount, TransferAmount;
@@ -264,7 +243,7 @@ bool Transfer(long long int AccountNumber[1000],int count,
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << "Account Number | " << AccountNumber[i] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
-                cout << "Full Name | " << FirstName[i] << " " << MiddleName[i] << " " << LastName[i] << endl;
+                cout << "Full Name | " << AccountName[i][0] << " " << AccountName[i][1] << " " << AccountName[i][2] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << "Deposit | " << AccDeposit[i] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
@@ -287,7 +266,7 @@ bool Transfer(long long int AccountNumber[1000],int count,
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << "Account Number | " << AccountNumber[i] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
-                cout << "Full Name | " << FirstName[i] << " " << MiddleName[i] << " " << LastName[i] << endl;
+                cout << "Full Name | " << AccountName[i][0] << " " << AccountName[i][1] << " " << AccountName[i][2] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 ArrRecNum = i;
                 ValidRecipant = true;
@@ -312,11 +291,15 @@ bool Transfer(long long int AccountNumber[1000],int count,
             }
             else if (AccDeposit[arrnum]-TransferAmount >= 50){
                 cout << "The Transfer Was Successfull."<<endl;
+                TransactionHistory[arrnum][Log[arrnum]] = "You Have Transfered Money to "+ AccountName[ArrRecNum][1];
+                TransactionHistory[ArrRecNum][Log[ArrRecNum]] = "You Have Recived Money from "+ AccountName[arrnum][1];
                 cout << "You Have Transfered " << TransferAmount << " Birr." << endl;
                 AccDeposit[arrnum] = AccDeposit[arrnum] - TransferAmount;
                 AccDeposit[ArrRecNum] = AccDeposit[ArrRecNum] + TransferAmount;
                 cout << "Your Updated Balance Is " << AccDeposit[arrnum] << " Birr." << endl;
                 ValidTransfer = true;
+                Log[arrnum] += 1;
+                Log[ArrRecNum] += 1;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << endl;
             }
@@ -354,17 +337,17 @@ bool Transfer(long long int AccountNumber[1000],int count,
 }
 
 
+
 // Function: Withdraw
-// -----------------------------
+
 bool Withdraw(long long int AccountNumber[],int count,
-    long long int AccDeposit[], string FirstName[], string MiddleName[], 
-    string LastName[])
+    long long int AccDeposit[], string AccountName[][3],string TransactionHistory[][100], int Log[])
 {
 
     int arrnum, choice;
     long long int InputAccount, WithdrawAmount;
     bool Run = true, IsRunning = true;
-    string InputName;
+    string TempMessage, InputName;
     while (IsRunning == true && Run == true ){
         bool ValidWithdraw = false, IsValid = false;
         arrnum = 0;
@@ -374,11 +357,11 @@ bool Withdraw(long long int AccountNumber[],int count,
         cin >> InputName;
         for (int i = 0; i < count; i++){
 // Conditional check
-            if (AccountNumber[i] == InputAccount && FirstName[i] == InputName){
+            if (AccountNumber[i] == InputAccount && AccountName[i][0] == InputName){
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << "Account Number | " << AccountNumber[i] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
-                cout << "Full Name | " << FirstName[i] << " " << MiddleName[i] << " " << LastName[i] << endl;
+                cout << "Full Name | " << AccountName[i][0] << " " << AccountName[i][1] << " " << AccountName[i][2] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << "Deposit | " << AccDeposit[i] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
@@ -394,17 +377,22 @@ bool Withdraw(long long int AccountNumber[],int count,
             cout << "There Is No Account Under That Account Number."<< endl;
         }
         while ( ValidWithdraw == false && IsValid == true ){
-            cout << "Enter Enter transfer amount: ";
+            cout << "Please Enter transfer amount: ";
             cin >> WithdrawAmount;
             if (AccDeposit[arrnum] - WithdrawAmount < 50){
                 cout << "Withdraw Declined, You have insufficient balance.\ncurrently you can only withdraw " << AccDeposit[arrnum] - 50 << endl;
             }
             else if (AccDeposit[arrnum]-WithdrawAmount >= 50){
                 cout << "The withdraw Was Successfull."<<endl;
-                cout << "You Have Withdrawed " << WithdrawAmount << " Birr." << endl;
+                //transaction message 
+                TransactionHistory[arrnum][Log[arrnum]] = "You Have Withdrawen Money";
+                cout << "You Have Withdrawen " << WithdrawAmount << " Birr." ;
+                
+
                 AccDeposit[arrnum] = AccDeposit[arrnum] - WithdrawAmount;
                 cout << "Your Updated Balance Is " << AccDeposit[arrnum] << " Birr." << endl;
                 ValidWithdraw = true;
+                Log[arrnum] += 1;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << endl;
             }
@@ -443,13 +431,11 @@ bool Withdraw(long long int AccountNumber[],int count,
     return IsRunning;
 }
 
-//
 
 // Function: BalanceInquiry
-// -----------------------------
-bool BalanceInquiry(long long int AccountNumber[],int count,
-    long long int AccDeposit[], string FirstName[], string MiddleName[], 
-    string LastName[])
+
+bool AccountDetails(long long int AccountNumber[],int count,
+    long long int AccDeposit[], string AccountName[][3], string TransactionHistory[][100], int Log[])
 {
     int choice;
     long long int InputAccount;
@@ -463,29 +449,35 @@ bool BalanceInquiry(long long int AccountNumber[],int count,
         cin >> InputName;
         for (int i = 0; i < count; i++){
             
-// Conditional check
-            if (AccountNumber[i] == InputAccount && FirstName[i] == InputName){
+            // Conditional check
+            if (AccountNumber[i] == InputAccount && AccountName[i][0]== InputName){
+                cout << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << "Account Number | " << AccountNumber[i] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
-                cout << "Full Name | " << FirstName[i] << " " << MiddleName[i] << " " << LastName[i] << endl;
+                cout << "Full Name | " << AccountName[i][0] << " " << AccountName[i][1] << " " << AccountName[i][2] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 cout << "Deposit | " << AccDeposit[i] << endl;
                 cout << "-------------------------------------------------------------------------------"<< endl;
                 IsValid = true;
+                //transaction list 
+                cout << "Transaction History:\n";
+                for (int j = 0; j < Log[i]; ) {
+                    cout << "  " << j + 1 << ") " << TransactionHistory[i][j] << endl;
+                    j++;
+                }
+
                 break;
             }
-            cout << endl;
+            
         }
-// Conditional check
+        cout << endl;
+        // Conditional check
         if (IsValid == false ){
             cout << "There Is No Account Under That Account Number."<< endl;
             continue;
         }
-
-    
-
-    // This part of the program handles exiting, going back to the main menu, or creating another account
+        // This part of the program handles exiting, going back to the main menu, or creating another account
         cout << "Enter 1 to quit the program." << endl;
         cout << "Enter 2 to go back to the main menu" << endl;
         cout << "Enter 3 to go back again and create another account." << endl;
@@ -524,24 +516,25 @@ bool BalanceInquiry(long long int AccountNumber[],int count,
 // Function: ShowAllAccounts
 // -----------------------------
 bool ShowAllAccounts(long long int AccountNumber[], int count,
-    long long int AccDeposit[], string FirstName[], string MiddleName[], 
-    string LastName[])
+    long long int AccDeposit[], string AccountName[][3])
 {
     int choice;
     bool Run = true, IsRunning = true;
     while (Run == true && IsRunning == true){
         for(int i = 0; i < count; i++){
-// Display information or prompt to user
+        // Display information or prompt to user
+            cout << endl;
             cout << "-------------------------------------------------------------------------------"<< endl;
             cout << "Account Number | " << AccountNumber[i] << endl;
             cout << "-------------------------------------------------------------------------------"<< endl;
-            cout << "Full Name | " << FirstName[i] << " " << MiddleName[i] << " " << LastName[i] << endl;
+            cout << "Full Name | " << AccountName[i][0] << " " << AccountName[i][1] << " " << AccountName[i][2] << endl;
             cout << "-------------------------------------------------------------------------------"<< endl;
             cout << "Deposit | " << AccDeposit[i] << endl;
             cout << "-------------------------------------------------------------------------------"<< endl;
-            cout << endl;
+            
         }
-    // This part of the program handles exiting, going back to the main menu, or creating another account
+        cout << endl;
+        // This part of the program handles exiting, going back to the main menu, or creating another account
         cout << "Enter 1 to quit the program." << endl;
         cout << "Enter 2 to go back to the main menu" << endl;
         cout << "Enter 3 to go back again and create another account." << endl;
@@ -574,21 +567,25 @@ bool ShowAllAccounts(long long int AccountNumber[], int count,
 }
 
 int main (){
-    const int ArrSize = 1000;
-    long long int InitAccNum = 1000, AccountNumber[ArrSize];
-    int  Age[ArrSize], count = 0;
-    long long int AccDeposit[ArrSize];
-    string FirstName[ArrSize], MiddleName[ArrSize], LastName[ArrSize]; 
+    const int ArrSize = 100;
+    int Log[ArrSize] = {0};
+    int Age[ArrSize] = {0};
+    int count = 0;
 
+    long long int InitAccNum = 1000, AccountNumber[ArrSize];
+    long long int AccDeposit[ArrSize];
+    string AccountName[ArrSize][3];
+    string TransactionHistory[ArrSize][100]; 
     bool IsRunning = true;
     int menu;
+
     while (IsRunning == true){
-// Display information or prompt to user
-        cout << "-------------------------------------------------------------------------------"<< endl;
+        // Display information or prompt to user
+        cout << "====================================================================="<< endl;
         cout << endl;
-        cout << "-----------------------------BANK MANAGEMENT SYSTEM----------------------------" << endl;
+        cout << "------------------------BANK MANAGEMENT SYSTEM-----------------------" << endl;
         cout << endl;
-        cout << "-------------------------------------------------------------------------------"<< endl;
+        cout << "====================================================================="<< endl;
         cout << "1. Create Account" << endl;
         cout << "2. Deposit" << endl;
         cout << "3. Transfer" << endl;
@@ -597,34 +594,29 @@ int main (){
         cout << "6. Show All Accounts" << endl;
         cout << "7. Exit" << endl;
         cout << endl;
-        cout << "-------------------------------------------------------------------------------"<< endl;
+        cout << "====================================================================="<< endl;
         
         cout << "Choose the service you want (1-7): ";
         cin >> menu;
+        
         if (menu == 1){
-            IsRunning = CreateAccount(InitAccNum, AccountNumber, count, Age,
-            AccDeposit, FirstName, MiddleName, LastName);
+            IsRunning = CreateAccount(InitAccNum, AccountNumber, count, Age,AccDeposit, AccountName);
         }
         else if (menu == 2){
-            IsRunning = Deposit(AccountNumber, count, Age,
-            AccDeposit, FirstName, MiddleName, LastName);
+            IsRunning = Deposit(AccountNumber, count, Age,AccDeposit, AccountName, TransactionHistory, Log);
 
         }
         else if (menu == 3){
-            IsRunning = Transfer(AccountNumber, count,
-            AccDeposit, FirstName, MiddleName, LastName);
+            IsRunning = Transfer(AccountNumber, count,AccDeposit, AccountName, TransactionHistory, Log);
         }
         else if (menu == 4){
-            IsRunning = Withdraw(AccountNumber, count,
-            AccDeposit, FirstName, MiddleName, LastName);
+            IsRunning = Withdraw(AccountNumber, count,AccDeposit, AccountName, TransactionHistory, Log);
         }
         else if (menu == 5){
-            IsRunning = BalanceInquiry(AccountNumber, count,
-            AccDeposit, FirstName, MiddleName, LastName);
+            IsRunning = AccountDetails(AccountNumber, count, AccDeposit, AccountName, TransactionHistory, Log);
         }
         else if (menu == 6){
-            IsRunning = ShowAllAccounts(AccountNumber, count,
-            AccDeposit, FirstName, MiddleName, LastName);
+            IsRunning = ShowAllAccounts(AccountNumber, count, AccDeposit, AccountName);
         }
         // Exit and return to main menu system 
 
