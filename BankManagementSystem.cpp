@@ -4,7 +4,7 @@ using namespace std;
 
 
 // Function: CreateAccount
-// -----------------------------
+
 bool CreateAccount(long long int InitAccNum, long long int AccountNumber[], int &count, int  Age[],
     long long int AccDeposit[], string FirstName[], string MiddleName[], 
     string LastName[])
