@@ -1,16 +1,30 @@
+# Bank Management System
+---
+**St. Mary's University**
 
-# 💼 Bank Management System
+*Programming Fundamentals Course - C++ Project*
 
-### 📚 Basic C++ Console Project  
-**Author:** Ethiel (Eyuel)  
-**University:** St. Mary’s University  
-**Course:** Programming Fundamentals / C++ (Beginner Level)
+![Console Interface Demo](https://via.placeholder.com/800x400?text=Bank+Management+System+Console+Demo)
 
 ---
 
-## 📌 Description
+## 👥 Team Members
+| Name | ID | GitHub |
+|------|----|--------|
+| Eyuel Esubalew | RCD/1690/2017 | [@eyuele](https://github.com/eyuele) |
+| Birhanemedin Mulat | RCD/0242/2017 | [@BMACode](https://github.com/BMACode) |
+| Kidus Anteneh | RCD/0264/2017 | [@kidusantenehalemu](https://github.com/kidusantenehalemu) |
+| Akbari Girma | RCD/0235/2017 | [@Akbari-Girma](https://github.com/Akbari-Girma) |
+| Amanuel Asefa | RCD/0236/2017 | [@amanueA](https://github.com/amanueA) |
+| Abenezer Getachew | RCD/0230/2017 | [@Abeniw](https://github.com/Abeniw) |
+| Isayas Tefera | RCD/1832/2017 | [@IsayasT](https://github.com/IsayasT) |
+| Alemtsehay Gormas | RCD/1827/2017 | [@alemg01](https://github.com/alemg01) |
+| Ermiyas Teklemuz | RCD/2549/2016 | [@ErmiyasT](https://github.com/ErmiyasT) |
 
-This project is a **Bank Management System** built entirely using **basic C++ and `iostream`**—no advanced libraries, no file handling, and no `cin.fail()` validation. It is structured to simulate real-world banking operations in a simple, educational context.
+---
+
+## 📝 Project Overview
+A console-based banking simulation system implementing core financial operations using fundamental C++ concepts. Designed specifically to demonstrate array manipulation and structured programming principles.
 
 ---
 
@@ -73,8 +87,6 @@ This project is a **Bank Management System** built entirely using **basic C++ an
 - ❌ No use of `cin.fail()` for input type checking  
 - ❌ No `file handling` or saving data after exit  
 - ❌ No use of `STL` (e.g., vectors, maps)  
-- ❌ No classes or OOP  
-- ❌ Not designed for security (no password check per account)
 
 ---
 
@@ -107,18 +119,3 @@ Transaction History:
 ```
 
 ---
-
-## 🚧 Future Improvements (for advanced versions)
-
-- Add file saving and loading with `fstream`
-- Add password authentication per account
-- Replace arrays with `vector` or `struct`
-- Add error-proof input handling using `cin.fail()` and `getline()`
-- Build GUI version using libraries like **Kivy (Python)** or **Qt (C++)**
-
----
-
-## 🧾 License
-
-This is a student project made for educational purposes only.  
-Feel free to reuse and learn from it in **basic C++ programming courses**.
