@@ -4,7 +4,7 @@
 
 *Programming Fundamentals Course - C++ Project*
 
-![Console Interface Demo](https://via.placeholder.com/800x400?text=Bank+Management+System+Console+Demo)
+
 
 ---
 
